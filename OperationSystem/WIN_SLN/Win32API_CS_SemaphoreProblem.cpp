@@ -33,7 +33,7 @@ HANDLE WINAPI producer(LPVOID lpParameter)
 		print();
 		ReleaseSemaphore(mutex, 1, nullptr);
 		ReleaseSemaphore(full, 1, nullptr);
-		Sleep(200);
+		Sleep(1000);
 	} while (true);
 	return 0L;
 }
@@ -49,7 +49,7 @@ HANDLE WINAPI consumer(LPVOID lpParameter)
 		print();
 		ReleaseSemaphore(mutex, 1, nullptr);
 		ReleaseSemaphore(empty, 1, nullptr);
-		Sleep(200);
+		Sleep(1000);
 	} while (true);
 	return 0L;
 }
