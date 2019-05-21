@@ -61,7 +61,6 @@ int main()
 	{
 		buffer[i] = -1;
 	}
-    std::cout << "Hello World!\n";
 	DWORD	DW;
 	empty = CreateSemaphore(nullptr, BUFFER, BUFFER, nullptr);
 	full = CreateSemaphore(nullptr, 0, BUFFER, nullptr);
