@@ -36,7 +36,6 @@ DWORD WINAPI ProcessCol::running(LPVOID lpThreadParemeter)
 			container->requests(pid, temp);
 			//((Func*)(lpThreadParemeter))->print();
 			//copy.print();
-			container->print();
 		}
 		else
 		{
@@ -45,7 +44,6 @@ DWORD WINAPI ProcessCol::running(LPVOID lpThreadParemeter)
 			//copy.release(copyPro.pid);
 			container->release(pid);
 			//std::cout << ((ProcessCol*)((Func*)(lpThreadParemeter))->ptr)->pid << "已释放" << std::endl;
-			std::cout << pid << "已释放" << std::endl;
 		}
 		ReleaseSemaphore(Rmutex, 1, nullptr);
 		Sleep(1000);

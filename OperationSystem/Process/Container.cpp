@@ -44,6 +44,8 @@ void Container::release(unsigned pid)
 		list[pid].allocation.res[i] = 0;
 		list[pid].need.res[i] = list[pid].max.res[i];
 	}
+	std::cout << "pid: " << pid << " 已释放" << std::endl;
+	container->print();
 	ReleaseSemaphore(mutex, 1, nullptr);
 }
 void Container::requests(unsigned pid, ResourceRow request)
@@ -80,19 +82,25 @@ void Container::requests(unsigned pid, ResourceRow request)
 			}
 		}
 		if (count == 0)
-			std::cout << "pid: " << pid << "请求成功" << std::endl;
-		for (unsigned i = 0; i < ROW_COUNT; ++i)
 		{
-			list[pid].allocation.res[i] += request.res[i];
-			list[pid].need.res[i] -= request.res[i];
-			avilable.res[i] -= request.res[i];
+			std::cout << "pid: " << pid << " 请求成功" << std::endl;
+			for (unsigned i = 0; i < ROW_COUNT; ++i)
+			{
+				list[pid].allocation.res[i] += request.res[i];
+				list[pid].need.res[i] -= request.res[i];
+				avilable.res[i] -= request.res[i];
+			}
+			container->print();
+			ReleaseSemaphore(mutex, 1, nullptr);
+			return;
 		}
-		ReleaseSemaphore(mutex, 1, nullptr);
-		return;
 		if (key == false)
+		{
 			std::cout << "pid: " << pid << "请求失败" << std::endl;
-		ReleaseSemaphore(mutex, 1, nullptr);
-		return;
+			container->print();
+			ReleaseSemaphore(mutex, 1, nullptr);
+			return;
+		}
 	}
 	for (int i = 0; i < ROW_COUNT; ++i)
 	{
